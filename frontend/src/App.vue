@@ -1,5 +1,5 @@
 <template>
-	<v-form v-model="valid">
+	<v-form @submit.prevent="sendRequest" v-model="valid">
 		<v-container>
 			<v-row>
 				<v-col
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
 	data: () => ({
 		valid: false,
@@ -82,7 +83,15 @@ export default {
 		],
 	}),
 	methods: {
-
+		sendRequest() {
+			axios
+				.post('http://localhost/authVue3/backend/', {
+					first_name: this.firstname,
+					last_name: this.lastname,
+					email: this.email,
+				})
+				.then(response => console.log(response))
+		}
 	}
 }
 </script>
